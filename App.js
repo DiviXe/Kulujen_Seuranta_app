@@ -16,6 +16,7 @@ export default function App() {
           name="Etusivu"
           component={Screen}
           options={{ title: "Home page" }}
+          initialRouteName="Screen"
         />
         <Stack.Screen
           name="AddMoney"

@@ -1,14 +1,15 @@
 import React from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, FlatList,} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, FlatList, ImageBackground} from 'react-native';
+const background = { uri: 'https://i.imgur.com/qle194G.jpeg' };
 import { LinearGradient } from 'expo-linear-gradient';
-import Checkbox from 'expo-checkbox';
 
 
 export const Screen = ({ navigation: { navigate } }) => {
 
   return (
     <View style={styles.container}>
-      <Text style = {{fontSize: 32,}}>Welcome to W&llet!</Text>
+      <ImageBackground source={background} resizeMode="cover" style={{ flex:1, justifyContent: 'flex-end',}}>
+      <Text style = {{fontSize: 32, color: '#fff', fontWeight: 'bold'}}>Welcome to W&llet!</Text>
     <LinearGradient colors={['#FAAD3D', '#EFC90A', '#F1CB0C', '#7E7E7E','#080808']} style={styles.box} 
     >
     <View style={styles.boxTextAlign}> 
@@ -45,6 +46,7 @@ export const Screen = ({ navigation: { navigate } }) => {
     <Text>yo</Text>
     
       </View>
+      </ImageBackground>
       </View>
   )
 }
@@ -52,8 +54,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 50,
-    paddingHorizontal: 20,
+    paddingVertical: 25,
+    paddingHorizontal: 15,
   },
   text: {
     flex: 1,
