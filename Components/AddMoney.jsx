@@ -1,4 +1,6 @@
-import {View, Text, TouchableOpacity,  StyleSheet, TextInput, AsyncStorage} from 'react-native';
+import {View, Text, TouchableOpacity,  StyleSheet, TextInput, ImageBackground} from 'react-native';
+const background = { uri: 'https://i.imgur.com/qle194G.jpeg' };
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect, Alert} from "react";
 function GoBackButton() {
@@ -68,12 +70,14 @@ useEffect(() => {
 }, []);
 
   return (
-    
     <View style={styles.container}> 
-      <Text>Write Amount and expense here.</Text>
+    <ImageBackground source={background} resizeMode="cover" style={{ flex:1, width:'100%', justifyContent: 'top', alignItems: 'center'}}>
+    
+      <Text style={{ color: '#fff', fontSize: 20, fontWeight: '700', }}>Write Amount and expense here.</Text>
       
       <TextInput style={styles.textInput}
         placeholder="Write amount here"
+        placeholderTextColor="#fff"
         onChangeText={(amount) => setAmount(amount)}
         value={amount}
         label="AMOUNT"
@@ -81,20 +85,21 @@ useEffect(() => {
       />
       <TextInput style={styles.textInput}
         placeholder="Write Expense here"
+        placeholderTextColor="#fff"
         onChangeText={(expense) => setExpense(expense)}
         value={expense}
         label="EXPENSE"
       />
       <TouchableOpacity style={styles.button} onPress={() => save()}>
-      <Text>Save the data</Text>
+      <Text style={{ marginTop: 5, color: '#fff', fontSize: 12, fontWeight: '700', }}>Save the data</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => remove()}>
-      <Text>remove the data</Text>
+      <Text style={{ marginTop: 5, color: '#fff', fontSize: 12, fontWeight: '700', }}>remove the data</Text>
       </TouchableOpacity>
       <GoBackButton/>
       <Text style={{heigth: 40}}>{amount} </Text>
       <Text style={{heigth: 40}}>{expense} </Text>
-      
+      </ImageBackground>
     </View>
   )
 }
