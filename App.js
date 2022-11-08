@@ -2,10 +2,10 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Screen from "./Components/Screen";
-import AddMoney from "./Components/AddMoney";
-import Logger from "./Components/AddMoney";
-import Settings from "./Components/Settings";
+import HomeScreen from "./Screens/HomeScreen";
+import AddMoney from "./Screens/AddMoney";
+import Logger from "./Screens/AddMoney";
+import Settings from "./Screens/Settings";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -14,9 +14,9 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name="Etusivu"
-          component={Screen}
+          component={HomeScreen}
           options={{ title: "Home page" }}
-          initialRouteName="Screen"
+          initialRouteName="HomeScreen"
         />
         <Stack.Screen
           name="AddMoney"
