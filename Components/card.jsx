@@ -14,6 +14,14 @@ const Card = () => {
       <View style={styles.boxTextAlign}>
         <Text style={styles.boxTextStyle}> Current balance</Text>
         <Text style={styles.Balance}>$6000,00</Text>
+
+        <TouchableOpacity
+          style={styles.BalanceButton}
+          onPress={() => navigate("AddBalance")}
+        >
+          <Text>Add Balance</Text>
+        </TouchableOpacity>
+
         <Text style={styles.CardNumbers}>1234 6546 3456 ****</Text>
       </View>
       <View style={styles.RightsideCardView}>
@@ -23,7 +31,7 @@ const Card = () => {
             style={styles.button}
             onPress={() => navigate("AddMoney")}
           >
-            <Text>Add</Text>
+            <Text style={{ fontSize: 9 }}>Add expense</Text>
           </TouchableOpacity>
           <Text style={styles.ExpenseNameStyle}>Expense</Text>
           <Text style={styles.ExpenseAmountStyle}>-Expense</Text>
@@ -73,6 +81,15 @@ const styles = StyleSheet.create({
   button: {
     padding: 5,
     marginTop: 25,
+    borderWidth: 3,
+    borderRadius: 25,
+    borderColor: "#fff",
+    backgroundColor: "#F1CB0C",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  BalanceButton: {
+    padding: 5,
     borderWidth: 3,
     borderRadius: 25,
     borderColor: "#fff",

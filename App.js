@@ -6,6 +6,7 @@ import AddMoney from "./Screens/AddMoney";
 import Logger from "./Screens/AddMoney";
 import Settings from "./Screens/Settings";
 import ExpenseProvider from "./context/ExpenseContext";
+import AddBalance from "./Screens/AddBalance";
 //const { amount, expense } = useExpenses();
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -33,6 +34,11 @@ export default function App() {
             name="Settings"
             component={Settings}
             options={{ title: "Settings possibly" }}
+          />
+          <Stack.Screen
+            name="AddBalance"
+            component={AddBalance}
+            options={{ title: "Add balance to account" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

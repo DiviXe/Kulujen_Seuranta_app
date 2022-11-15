@@ -1,5 +1,11 @@
-import React, { useContext } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import React, { useContext, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import Card from "../Components/card";
 import CustomImageBackground from "../Components/ImageBackground";
 import { useExpenses } from "../context/ExpenseContext";
@@ -28,17 +34,35 @@ const Item = ({ title }) => (
     <Text>{title}</Text>
   </View>
 );
-
 export const HomeScreen = ({ navigation }) => {
+  const useExpenses = () => useContext(ExpenseContext);
   const renderItem = ({ item }) => <Item title={item.title} />;
-  //const { amount, expense } = useContext(useExpenses);
-  //console.log(values); undefined
   return (
     <CustomImageBackground>
       <Text style={styles.WalletTitle}>Welcome to W&llet!</Text>
       <Card />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <TouchableOpacity
+          style={styles.button2}
+          onPress={() => navigate("Logger")}
+        >
+          <Text>Settings</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button2}
+          onPress={() => navigate("Settings")}
+        >
+          <Text>Logger</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.FlatlistContainer}>
         <FlatList
+          //data={useExpenses}
           data={DATA}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
@@ -60,10 +84,9 @@ const styles = StyleSheet.create({
   },
   FlatlistContainer: {
     flex: 1,
-    width: 350,
+    width: 400,
     paddingVertical: 5,
     borderColor: "#fff",
-    paddingTop: 40,
     paddingHorizontal: 20,
   },
 
@@ -99,6 +122,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  button2: {
+    padding: 5,
+    marginTop: 20,
+    borderWidth: 3,
+    borderRadius: 20,
+    borderColor: "#fff",
+    backgroundColor: "#F1CB0C",
+  },
+
   fadingContainer: {
     padding: 20,
     backgroundColor: "powderblue",
