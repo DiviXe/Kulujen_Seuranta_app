@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import Card from "../Components/card";
 import CustomImageBackground from "../Components/ImageBackground";
+import { useExpenses } from "../context/ExpenseContext";
 
-//example flatlist (data needed from AddMoney)
 const DATA = [
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -31,7 +31,8 @@ const Item = ({ title }) => (
 
 export const HomeScreen = ({ navigation }) => {
   const renderItem = ({ item }) => <Item title={item.title} />;
-
+  //const { amount, expense } = useContext(useExpenses);
+  //console.log(values); undefined
   return (
     <CustomImageBackground>
       <Text style={styles.WalletTitle}>Welcome to W&llet!</Text>

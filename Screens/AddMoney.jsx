@@ -14,7 +14,7 @@ function GoBackButton() {
 
   return (
     <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-      <Text>Back to screen :)</Text>
+      <Text>Back to screen</Text>
     </TouchableOpacity>
   );
 }
@@ -49,6 +49,7 @@ export const AddMoney = () => {
       if (amount !== null) {
         setAmount(amount);
         setExpense(expense);
+        console.log(amount, expense);
       }
     } catch (err) {
       alert(err);
