@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./Screens/HomeScreen";
 import AddMoney from "./Screens/AddMoney";
-import Logger from "./Screens/AddMoney";
+import Logger from "./Screens/Logger";
 import Settings from "./Screens/Settings";
 import ExpenseProvider from "./context/ExpenseContext";
 import AddBalance from "./Screens/AddBalance";

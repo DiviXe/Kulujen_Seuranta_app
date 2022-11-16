@@ -9,6 +9,7 @@ import {
 import Card from "../Components/card";
 import CustomImageBackground from "../Components/ImageBackground";
 import { useExpenses } from "../context/ExpenseContext";
+import { useNavigation } from "@react-navigation/native";
 
 const DATA = [
   {
@@ -35,6 +36,7 @@ const Item = ({ title }) => (
   </View>
 );
 export const HomeScreen = ({ navigation }) => {
+  const { navigate } = useNavigation();
   const useExpenses = () => useContext(ExpenseContext);
   const renderItem = ({ item }) => <Item title={item.title} />;
   return (
@@ -51,13 +53,13 @@ export const HomeScreen = ({ navigation }) => {
           style={styles.button2}
           onPress={() => navigate("Logger")}
         >
-          <Text>Settings</Text>
+          <Text>Total Expenses </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
           onPress={() => navigate("Settings")}
         >
-          <Text>Logger</Text>
+          <Text>Settings</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.FlatlistContainer}>
