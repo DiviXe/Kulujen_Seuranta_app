@@ -28,7 +28,7 @@ export default function App() {
           <Stack.Screen
             name="Logger"
             component={Logger}
-            options={{ title: "Logging data" }}
+            options={{ title: "Your monthly expenses" }}
           />
           <Stack.Screen
             name="Settings"
