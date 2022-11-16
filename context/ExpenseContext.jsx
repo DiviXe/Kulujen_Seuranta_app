@@ -6,13 +6,11 @@ const ExpenseContext = createContext();
 export const ExpenseProvider = (props) => {
   const [amount, setAmount] = useState("");
   const [expense, setExpense] = useState("");
-  const [balance, setBalance] = useState("");
 
   const save = async () => {
     try {
       await AsyncStorage.setItem("amount", amount);
       await AsyncStorage.setItem("expense", expense);
-      await AsyncStorage.setItem("balance", balance);
     } catch (err) {
       alert(err);
     }
@@ -22,11 +20,9 @@ export const ExpenseProvider = (props) => {
     try {
       let amount = await AsyncStorage.getItem("amount");
       let expense = await AsyncStorage.getItem("expense");
-      let balance = await AsyncStorage.getItem("balance");
       if (amount !== null) {
         setAmount(amount);
         setExpense(expense);
-        setBalance(balance);
         console.log(amount, expense, balance);
       }
     } catch (err) {
@@ -50,7 +46,7 @@ export const ExpenseProvider = (props) => {
     load();
   }, []);
   return (
-    <ExpenseContext.Provider value={{ amount, expense, balance }}>
+    <ExpenseContext.Provider value={{ amount, expense }}>
       {props.children}
     </ExpenseContext.Provider>
   );

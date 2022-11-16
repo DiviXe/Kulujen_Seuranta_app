@@ -9,6 +9,7 @@ import {
 import Card from "../Components/card";
 import CustomImageBackground from "../Components/ImageBackground";
 import { useExpenses } from "../context/ExpenseContext";
+import { useBalance } from "../context/BalanceContext";
 import { useNavigation } from "@react-navigation/native";
 
 const DATA = [
