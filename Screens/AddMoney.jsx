@@ -1,8 +1,10 @@
 import { Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState, useEffect, Alert } from "react";
+import React, { useState, useEffect, Alert, useContext } from "react";
 import CustomImageBackground from "../Components/ImageBackground";
+import { ExpenseContext } from "../context/ExpenseContext";
+import ExpenseList from "../Components/ExpenseList";
 function GoBackButton() {
   const navigation = useNavigation();
 
@@ -16,6 +18,7 @@ function GoBackButton() {
 export const AddMoney = () => {
   const [amount, setAmount] = useState("");
   const [expense, setExpense] = useState("");
+  const { AddExpense } = useContext(ExpenseContext);
 
   const Alert = () =>
     Alert.alert("Expense added", "exampe", [
@@ -28,12 +31,8 @@ export const AddMoney = () => {
     ]);
 
   const save = async () => {
-    try {
-      await AsyncStorage.setItem("amount", amount);
-      await AsyncStorage.setItem("expense", expense);
-    } catch (err) {
-      alert(err);
-    }
+    let time = Date.now();
+    AddExpense({ time, amount, expense });
   };
 
   const load = async () => {
@@ -43,7 +42,6 @@ export const AddMoney = () => {
       if (amount !== null) {
         setAmount(amount);
         setExpense(expense);
-        console.log(amount, expense);
       }
     } catch (err) {
       alert(err);
@@ -74,8 +72,7 @@ export const AddMoney = () => {
 
       <TextInput
         style={styles.textInputBox}
-        placeholder="Write amount here"
-        placeholderTextColor="#fff"
+        placeholder="Write Amount here"
         onChangeText={(amount) => setAmount(amount)}
         value={amount}
         label="AMOUNT"
@@ -84,7 +81,6 @@ export const AddMoney = () => {
       <TextInput
         style={styles.textInputBox}
         placeholder="Write Expense here"
-        placeholderTextColor="#fff"
         onChangeText={(expense) => setExpense(expense)}
         value={expense}
         label="EXPENSE"
@@ -92,53 +88,39 @@ export const AddMoney = () => {
       <TouchableOpacity style={styles.button} onPress={() => save()}>
         <Text
           style={{
-            marginTop: 5,
-            fontSize: 12,
             fontWeight: "700",
           }}
         >
-          Save the data
+          ADD
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => remove()}>
-        <Text
-          style={{
-            marginTop: 5,
-            fontSize: 12,
-            fontWeight: "700",
-          }}
-        >
-          remove the data
-        </Text>
-      </TouchableOpacity>
-      <GoBackButton />
-      <Text style={{ color: "#fff" }}>{amount} </Text>
-      <Text style={{ color: "#fff" }}>{expense} </Text>
+
+      {/* <GoBackButton /> */}
+
+      <ExpenseList />
     </CustomImageBackground>
   );
 };
 const styles = StyleSheet.create({
   button: {
-    padding: 5,
-    marginTop: 5,
+    padding: 10,
+    marginVertical: 10,
     borderWidth: 3,
-    borderRadius: 20,
+    borderRadius: 99,
     borderColor: "#fff",
     backgroundColor: "#F1CB0C",
     alignItems: "center",
     justifyContent: "center",
   },
   textInputBox: {
-    borderWidth: 3,
-    borderColor: "gray",
-    width: 200,
-    margin: 5,
+    backgroundColor: "#0002",
+    padding: 10,
+    borderRadius: 10,
     color: "#fff",
+    marginVertical: 10,
   },
 
   AddMoneyTitle: {
-    color: "#fff",
-    fontSize: 20,
     fontWeight: "700",
   },
 });

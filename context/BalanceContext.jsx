@@ -1,7 +1,7 @@
+//NOT NEEDED
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-//does it need two contexts?
 const BalanceContext = createContext();
 export const BalanceProvider = (props) => {
   const [balance, setBalance] = useState("");
@@ -19,7 +19,6 @@ export const BalanceProvider = (props) => {
       let balance = await AsyncStorage.getItem("balance");
       if (balance !== null) {
         setBalance(balance);
-        console.log(balance);
       }
     } catch (err) {
       alert(err);

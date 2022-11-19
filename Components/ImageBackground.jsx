@@ -1,6 +1,8 @@
 import { ImageBackground, StyleSheet } from "react-native";
 
-const background = { uri: "https://i.imgur.com/qle194G.jpeg" };
+const background = {
+  uri: "https://i.imgur.com/AizUHEf.png",
+};
 
 const CustomImageBackground = (props) => (
   <ImageBackground

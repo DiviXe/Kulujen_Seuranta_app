@@ -1,55 +1,65 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const ExpenseContext = createContext();
+export const ExpenseContext = createContext(null);
 
 export const ExpenseProvider = (props) => {
-  const [amount, setAmount] = useState("");
-  const [expense, setExpense] = useState("");
+  const [amount, setAmount] = useState();
+  const [balance, setBalance] = useState();
+  const [expense, setExpense] = useState([]);
 
-  const save = async () => {
-    try {
-      await AsyncStorage.setItem("amount", amount);
-      await AsyncStorage.setItem("expense", expense);
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  const load = async () => {
-    try {
-      let amount = await AsyncStorage.getItem("amount");
-      let expense = await AsyncStorage.getItem("expense");
-      if (amount !== null) {
-        setAmount(amount);
-        setExpense(expense);
-        console.log(amount, expense, balance);
-      }
-    } catch (err) {
-      alert(err);
-    }
-  };
-  //remove is not final maybe it's not even needed id maybe required?
-  const remove = async () => {
-    try {
-      await AsyncStorage.removeItem("amount");
-      await AsyncStorage.removeItem("expense");
-    } catch (err) {
-      alert(err);
-    } finally {
-      setAmount("");
-      setExpense("");
-    }
-  };
+  console.log(expense, "expense");
 
   useEffect(() => {
     load();
   }, []);
+
+  const load = async () => {
+    let _amount = await AsyncStorage.getItem("@amount");
+    let _expense = await AsyncStorage.getItem("@expense");
+    let _balance = await AsyncStorage.getItem("@balance");
+
+    if (_amount != null) setAmount(JSON.parse(_amount));
+    if (_expense != null) setExpense(JSON.parse(_expense));
+    if (_balance != null) setBalance(JSON.parse(_balance));
+  };
+
+  const AddExpense = async (_expense) => {
+    let data = [_expense, ...expense];
+    setExpense(data);
+    await AsyncStorage.setItem("@expense", JSON.stringify(data));
+  };
+
+  const DeleteExpense = async (id) => {
+    let filtered = expense.filter((item) => item.time != id);
+    setExpense(filtered);
+    await AsyncStorage.setItem("@expense", JSON.stringify(filtered));
+  };
+
+  const AddBalance = async (balance) => {
+    setBalance(balance);
+    await AsyncStorage.setItem("@balance", JSON.stringify(balance));
+  };
+
+  const AddAmount = async (amount) => {
+    setAmount(amount);
+    await AsyncStorage.setItem("@amount", JSON.stringify(amount));
+  };
+
   return (
-    <ExpenseContext.Provider value={{ amount, expense }}>
+    <ExpenseContext.Provider
+      value={{
+        amount,
+        expense,
+        balance,
+        AddExpense,
+        AddAmount,
+        AddBalance,
+        DeleteExpense,
+      }}
+    >
       {props.children}
     </ExpenseContext.Provider>
   );
 };
-export const useExpenses = () => useContext(ExpenseContext);
 export default ExpenseProvider;

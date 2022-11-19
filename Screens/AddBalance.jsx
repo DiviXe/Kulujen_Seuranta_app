@@ -1,44 +1,25 @@
-import { Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState, useEffect, Alert } from "react";
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  Alert,
+} from "react-native";
+import React, { useState, useContext } from "react";
 import CustomImageBackground from "../Components/ImageBackground";
+import { ExpenseContext } from "../context/ExpenseContext";
+import ExpenseList from "../Components/ExpenseList";
 
 export const AddBalance = () => {
   const [balance, setBalance] = useState("");
+  const { AddBalance } = useContext(ExpenseContext);
 
-  const Alert = () =>
-    Alert.alert("Balance has been updated", "exampe", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      { text: "OK", onPress: () => console.log("OK Pressed") },
-    ]);
+  const UserAlert = () => Alert.alert("Balance has been updated", balance);
 
   const save = async () => {
-    try {
-      await AsyncStorage.setItem("balance", balance);
-    } catch (err) {
-      alert(err);
-    }
+    AddBalance(balance);
+    UserAlert();
   };
-
-  const load = async () => {
-    try {
-      let balance = await AsyncStorage.getItem("balance");
-      if (balance !== null) {
-        setBalance(balance);
-        console.log(balance);
-      }
-    } catch (err) {
-      alert(err);
-    }
-  };
-
-  useEffect(() => {
-    load();
-  }, []);
 
   return (
     <CustomImageBackground>
@@ -47,7 +28,6 @@ export const AddBalance = () => {
       <TextInput
         style={styles.textInputBox}
         placeholder="Write your balance"
-        placeholderTextColor="#fff"
         onChangeText={(balance) => setBalance(balance)}
         value={balance}
         label="BALANCE"
@@ -57,41 +37,35 @@ export const AddBalance = () => {
       <TouchableOpacity style={styles.button} onPress={() => save()}>
         <Text
           style={{
-            marginTop: 5,
-            fontSize: 12,
             fontWeight: "700",
           }}
         >
-          Save balance
+          Save Balance
         </Text>
       </TouchableOpacity>
-
-      <Text style={{ color: "#fff" }}>{balance} </Text>
     </CustomImageBackground>
   );
 };
 const styles = StyleSheet.create({
   button: {
-    padding: 5,
-    marginTop: 5,
+    padding: 10,
+    marginVertical: 20,
     borderWidth: 3,
-    borderRadius: 20,
+    borderRadius: 99,
     borderColor: "#fff",
     backgroundColor: "#F1CB0C",
     alignItems: "center",
     justifyContent: "center",
   },
   textInputBox: {
-    borderWidth: 3,
-    borderColor: "gray",
-    width: 200,
-    margin: 5,
+    backgroundColor: "#0002",
+    padding: 10,
+    borderRadius: 10,
     color: "#fff",
+    marginVertical: 10,
   },
 
-  AddMoneyBalance: {
-    color: "#fff",
-    fontSize: 20,
+  AddBalanceTitle: {
     fontWeight: "700",
   },
 });

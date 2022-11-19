@@ -1,41 +1,51 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import { ExpenseContext } from "../context/ExpenseContext";
 
 const Card = () => {
   const { navigate } = useNavigation();
 
+  const { expense, balance, amount } = useContext(ExpenseContext);
+  let recentExpense = expense.length > 0 ? expense[0] : false;
+  //let MinusExpense = balance - amount;
+  //console.log(MinusExpense);
   return (
-    <LinearGradient
-      colors={["#FAAD3D", "#EFC90A", "#F1CB0C", "#7E7E7E", "#080808"]}
-      style={styles.box}
-    >
+    <LinearGradient colors={["#FAAD3D", "#EFC90A"]} style={styles.box}>
       <View style={styles.boxTextAlign}>
         <Text style={styles.boxTextStyle}> Current balance</Text>
-        <Text style={styles.Balance}>$6000,00</Text>
+        <Text style={styles.Balance}>${balance}</Text>
 
         <TouchableOpacity
           style={styles.BalanceButton}
           onPress={() => navigate("AddBalance")}
         >
-          <Text>Add Balance</Text>
+          <Text style={{ fontSize: 9 }}>Add Balance</Text>
         </TouchableOpacity>
 
         <Text style={styles.CardNumbers}>1234 6546 3456 ****</Text>
       </View>
       <View style={styles.RightsideCardView}>
-        <Text style={styles.VisacardView}>VISA</Text>
         <View>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.BalanceButton}
             onPress={() => navigate("AddMoney")}
           >
             <Text style={{ fontSize: 9 }}>Add expense</Text>
           </TouchableOpacity>
-          <Text style={styles.ExpenseNameStyle}>Expense</Text>
-          <Text style={styles.ExpenseAmountStyle}>-Expense</Text>
+          {recentExpense && (
+            <>
+              <Text style={styles.ExpenseNameStyle}>
+                {recentExpense.expense}
+              </Text>
+              <Text style={styles.ExpenseAmountStyle}>
+                -{recentExpense.amount}
+              </Text>
+            </>
+          )}
         </View>
+        <Text style={styles.VisacardView}>VISA</Text>
       </View>
     </LinearGradient>
   );
@@ -63,14 +73,12 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   box: {
-    width: "80%",
     borderRadius: 15,
     flexDirection: "row",
-    padding: 22,
-    flex: 1,
+    padding: 20,
   },
   boxTextAlign: {
-    width: "70%",
+    flex: 3,
     alignItems: "flex-start",
   },
   boxTextStyle: {
@@ -78,51 +86,30 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
-  button: {
-    padding: 5,
-    marginTop: 25,
-    borderWidth: 3,
-    borderRadius: 25,
-    borderColor: "#fff",
-    backgroundColor: "#F1CB0C",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   BalanceButton: {
-    padding: 5,
-    borderWidth: 3,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderWidth: 2,
     borderRadius: 25,
-    borderColor: "#fff",
-    backgroundColor: "#F1CB0C",
+    borderColor: "#0004",
+    backgroundColor: "#0004",
     alignItems: "center",
     justifyContent: "center",
   },
 
-  item: {
-    width: "70%",
-    backgroundColor: "#ffc600",
-    padding: 2,
-    marginVertical: 5,
-    marginHorizontal: 10,
-    borderWidth: 3,
-    borderRadius: 25,
-    borderColor: "#fff",
-  },
-  title: {
-    fontSize: 20,
-  },
   Balance: {
     fontSize: 32,
     fontWeight: "bold",
   },
   CardNumbers: {
     fontSize: 15,
-    marginTop: 50,
+    marginTop: 30,
     fontWeight: "bold",
   },
   RightsideCardView: {
-    alignItems: "flex-end",
-    width: "30%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flex: 1,
   },
   VisacardView: {
     fontSize: 18,
@@ -132,10 +119,12 @@ const styles = StyleSheet.create({
   ExpenseNameStyle: {
     marginTop: 5,
     fontSize: 12,
+    textAlign: "center",
     fontWeight: "700",
   },
   ExpenseAmountStyle: {
     marginTop: 5,
+    textAlign: "center",
     fontSize: 8,
     fontWeight: "700",
   },
