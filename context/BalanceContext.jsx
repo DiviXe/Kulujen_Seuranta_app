@@ -1,5 +1,5 @@
 //NOT NEEDED
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BalanceContext = createContext();

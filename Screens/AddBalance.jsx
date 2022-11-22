@@ -8,7 +8,6 @@ import {
 import React, { useState, useContext } from "react";
 import CustomImageBackground from "../Components/ImageBackground";
 import { ExpenseContext } from "../context/ExpenseContext";
-import ExpenseList from "../Components/ExpenseList";
 
 export const AddBalance = () => {
   const [balance, setBalance] = useState("");
@@ -23,7 +22,7 @@ export const AddBalance = () => {
 
   return (
     <CustomImageBackground>
-      <Text style={styles.AddBalanceTitle}>Write Amount Balance here</Text>
+      <Text style={styles.AddBalanceTitle}>Write Balance here</Text>
 
       <TextInput
         style={styles.textInputBox}

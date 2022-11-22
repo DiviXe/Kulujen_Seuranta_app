@@ -10,7 +10,6 @@ import { ExpenseContext } from "../context/ExpenseContext";
 
 const ExpenseList = () => {
   const { expense } = useContext(ExpenseContext);
-
   const ItemList = ({ title, amount, time }) => {
     const { DeleteExpense } = useContext(ExpenseContext);
     return (
@@ -36,7 +35,9 @@ const ExpenseList = () => {
       <FlatList
         data={expense}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => {
+          return item.id;
+        }}
       />
     </View>
   );

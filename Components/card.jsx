@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -6,16 +6,34 @@ import { ExpenseContext } from "../context/ExpenseContext";
 
 const Card = () => {
   const { navigate } = useNavigation();
+  const [totalBalance, setTotalBalance] = useState("");
+  const [totalExpense, setTotalExp] = useState("");
+  const { expense, balance } = useContext(ExpenseContext);
 
-  const { expense, balance, amount } = useContext(ExpenseContext);
+  useEffect(() => {
+    let total = expense.reduce(
+      (n, { amount }) => Number(n) + Number(amount),
+      0
+    );
+    setTotalExp(total);
+  }, [expense]);
+  console.log(totalExpense);
+
+  const sum = function () {
+    setTotalBalance(Number(balance) - Number(totalExpense));
+    console.log(totalBalance);
+  };
+
   let recentExpense = expense.length > 0 ? expense[0] : false;
-  //let MinusExpense = balance - amount;
-  //console.log(MinusExpense);
   return (
     <LinearGradient colors={["#FAAD3D", "#EFC90A"]} style={styles.box}>
       <View style={styles.boxTextAlign}>
         <Text style={styles.boxTextStyle}> Current balance</Text>
-        <Text style={styles.Balance}>${balance}</Text>
+        <Text style={styles.Balance}>${totalBalance}</Text>
+
+        <TouchableOpacity style={styles.BalanceButton} onPress={sum}>
+          <Text style={{ fontSize: 6 }}>Update balance amount</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.BalanceButton}
@@ -30,7 +48,7 @@ const Card = () => {
         <View>
           <TouchableOpacity
             style={styles.BalanceButton}
-            onPress={() => navigate("AddMoney")}
+            onPress={() => navigate("AddExpense")}
           >
             <Text style={{ fontSize: 9 }}>Add expense</Text>
           </TouchableOpacity>
@@ -87,8 +105,9 @@ const styles = StyleSheet.create({
   },
 
   BalanceButton: {
+    marginTop: 2,
     paddingHorizontal: 6,
-    paddingVertical: 2,
+    paddingVertical: 6,
     borderWidth: 2,
     borderRadius: 25,
     borderColor: "#0004",

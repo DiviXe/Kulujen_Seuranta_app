@@ -15,7 +15,7 @@ function GoBackButton() {
   );
 }
 
-export const AddMoney = () => {
+export const AddExpense = () => {
   const [amount, setAmount] = useState("");
   const [expense, setExpense] = useState("");
   const { AddExpense } = useContext(ExpenseContext);
@@ -125,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddMoney;
+export default AddExpense;

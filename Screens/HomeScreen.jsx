@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button2: {
+    borderRadius: 2,
+    backgroundColor: "gray",
+    borderWidth: 2,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -73,7 +76,6 @@ const styles = StyleSheet.create({
     margin: 10,
     marginVertical: 20,
     borderRadius: 20,
-    backgroundColor: "#0002",
   },
 
   delete: {
