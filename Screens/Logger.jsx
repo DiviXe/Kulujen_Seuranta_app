@@ -1,24 +1,17 @@
-import { useContext, useEffect, useState } from "react";
 import { Text, StyleSheet } from "react-native";
 import ExpenseList from "../Components/ExpenseList";
 import CustomImageBackground from "../Components/ImageBackground";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { useExpenses } from "../context/ExpenseContext";
 
 export const Logger = () => {
-  const [totalExp, setTotalExp] = useState("");
-  const { expense } = useContext(ExpenseContext);
-  useEffect(() => {
-    let total = expense.reduce(
-      (n, { amount }) => Number(n) + Number(amount),
-      0
-    );
-    setTotalExp(total);
-  }, [expense]);
+  const { sumOfAllExpenses } = useExpenses();
+
+  console.log(sumOfAllExpenses);
 
   return (
     <CustomImageBackground>
       <Text style={styles.LoggerTitle}>
-        Monthly Expenses Total: ${totalExp}
+        Monthly Expenses Total: €{sumOfAllExpenses}
       </Text>
       <ExpenseList />
     </CustomImageBackground>

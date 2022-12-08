@@ -5,28 +5,27 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import CustomImageBackground from "../Components/ImageBackground";
-import { ExpenseContext } from "../context/ExpenseContext";
-
+import { useExpenses } from "../context/ExpenseContext";
 export const AddBalance = () => {
   const [balance, setBalance] = useState("");
-  const { AddBalance } = useContext(ExpenseContext);
+  const { addBalance, allExpenses } = useExpenses();
 
-  const UserAlert = () => Alert.alert("Balance has been updated", balance);
+  const userAlert = () => Alert.alert("Balance has been updated", balance);
 
   const save = async () => {
-    AddBalance(balance);
-    UserAlert();
+    addBalance(balance);
+    userAlert();
   };
 
   return (
     <CustomImageBackground>
-      <Text style={styles.AddBalanceTitle}>Write Balance here</Text>
+      <Text style={styles.AddBalanceTitle}>enter your Balance here</Text>
 
       <TextInput
         style={styles.textInputBox}
-        placeholder="Write your balance"
+        placeholder="enter balance"
         onChangeText={(balance) => setBalance(balance)}
         value={balance}
         label="BALANCE"

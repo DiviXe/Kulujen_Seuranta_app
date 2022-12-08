@@ -1,7 +1,7 @@
 import { ImageBackground, StyleSheet } from "react-native";
 
 const background = {
-  uri: "https://i.imgur.com/AizUHEf.png",
+  uri: "https://i.imgur.com/FhrTZqH.jpeg",
 };
 
 const CustomImageBackground = (props) => (
@@ -16,8 +16,9 @@ const CustomImageBackground = (props) => (
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#fff",
     flex: 1,
-    alignItems: "center",
+    padding: 20,
   },
 });
 

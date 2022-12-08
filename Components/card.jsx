@@ -1,39 +1,17 @@
-import React, { useContext, useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { useExpenses } from "../context/ExpenseContext";
 
 const Card = () => {
   const { navigate } = useNavigation();
-  const [totalBalance, setTotalBalance] = useState("");
-  const [totalExpense, setTotalExp] = useState("");
-  const { expense, balance } = useContext(ExpenseContext);
-
-  useEffect(() => {
-    let total = expense.reduce(
-      (n, { amount }) => Number(n) + Number(amount),
-      0
-    );
-    setTotalExp(total);
-  }, [expense]);
-  console.log(totalExpense);
-
-  const sum = function () {
-    setTotalBalance(Number(balance) - Number(totalExpense));
-    console.log(totalBalance);
-  };
-
-  let recentExpense = expense.length > 0 ? expense[0] : false;
+  const { totalBalance, allExpenses, selectedCardColor } = useExpenses();
+  let recentExpense = allExpenses.length > 0 ? allExpenses[0] : false;
   return (
-    <LinearGradient colors={["#FAAD3D", "#EFC90A"]} style={styles.box}>
+    <LinearGradient colors={selectedCardColor} style={styles.box}>
       <View style={styles.boxTextAlign}>
         <Text style={styles.boxTextStyle}> Current balance</Text>
-        <Text style={styles.Balance}>${totalBalance}</Text>
-
-        <TouchableOpacity style={styles.BalanceButton} onPress={sum}>
-          <Text style={{ fontSize: 6 }}>Update balance amount</Text>
-        </TouchableOpacity>
+        <Text style={styles.Balance}>€{totalBalance}</Text>
 
         <TouchableOpacity
           style={styles.BalanceButton}
@@ -48,14 +26,14 @@ const Card = () => {
         <View>
           <TouchableOpacity
             style={styles.BalanceButton}
-            onPress={() => navigate("AddExpense")}
+            onPress={() => navigate("NewExpenseScreen")}
           >
             <Text style={{ fontSize: 9 }}>Add expense</Text>
           </TouchableOpacity>
           {recentExpense && (
             <>
               <Text style={styles.ExpenseNameStyle}>
-                {recentExpense.expense}
+                {recentExpense.description}
               </Text>
               <Text style={styles.ExpenseAmountStyle}>
                 -{recentExpense.amount}

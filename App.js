@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./Screens/HomeScreen";
-import AddExpense from "./Screens/AddExpense";
+import NewExpenseScreen from "./Screens/NewExpenseScreen";
 import Logger from "./Screens/Logger";
 import Settings from "./Screens/Settings";
 import ExpenseProvider from "./context/ExpenseContext";
@@ -19,8 +19,8 @@ export default function App() {
             initialRouteName="HomeScreen"
           />
           <Stack.Screen
-            name="AddExpense"
-            component={AddExpense}
+            name="NewExpenseScreen"
+            component={NewExpenseScreen}
             options={{ title: "Add expense" }}
           />
           <Stack.Screen

@@ -1,4 +1,3 @@
-import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -6,34 +5,32 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { useExpenses } from "../context/ExpenseContext";
 
-const ExpenseList = () => {
-  const { expense } = useContext(ExpenseContext);
-  const ItemList = ({ title, amount, time }) => {
-    const { DeleteExpense } = useContext(ExpenseContext);
-    return (
-      <View style={styles.item}>
-        <Text>{title}</Text>
-        <Text>{amount}</Text>
-        <TouchableOpacity
-          style={styles.delete}
-          onPress={() => DeleteExpense(time)}
-        >
-          <Text style={styles.deleteText}>Delete</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
-  const renderItem = ({ item, index }) => (
-    <ItemList time={item.time} title={item.expense} amount={item.amount} />
+const ExpenseItem = ({ expenseItem }) => {
+  const { deleteExpense } = useExpenses();
+  return (
+    <View style={styles.item}>
+      <Text>{expenseItem.description}</Text>
+      <Text>{expenseItem.amount}</Text>
+      <TouchableOpacity
+        style={styles.delete}
+        onPress={() => deleteExpense(expenseItem.id)}
+      >
+        <Text style={styles.deleteText}>Delete</Text>
+      </TouchableOpacity>
+    </View>
   );
+};
+const ExpenseList = () => {
+  const { allExpenses } = useExpenses();
+
+  const renderItem = ({ item }) => <ExpenseItem expenseItem={item} />;
 
   return (
     <View style={styles.FlatlistContainer}>
       <FlatList
-        data={expense}
+        data={allExpenses.sort((a, b) => a.time < b.time)}
         renderItem={renderItem}
         keyExtractor={(item, index) => {
           return item.id;
@@ -58,7 +55,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginVertical: 5,
-    // borderWidth: 1,
     borderRadius: 8,
     borderColor: "#0002",
   },

@@ -2,64 +2,76 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const ExpenseContext = createContext(null);
-
 export const ExpenseProvider = (props) => {
-  const [amount, setAmount] = useState();
+  const [selectedCardColor, setSelectedCardColor] = useState([]);
   const [balance, setBalance] = useState();
-  const [expense, setExpense] = useState([]);
-
-  console.log(expense, "expense");
-
+  const [allExpenses, setAllExpenses] = useState([]);
+  //AsyncStorage.clear();
+  console.log(allExpenses, "allExpenses");
   useEffect(() => {
     load();
   }, []);
 
   const load = async () => {
-    let _amount = await AsyncStorage.getItem("@amount");
-    let _expense = await AsyncStorage.getItem("@expense");
-    let _balance = await AsyncStorage.getItem("@balance");
+    let cardColor = await AsyncStorage.getItem("@selectedCardColor");
+    let expenses = await AsyncStorage.getItem("@allExpenses");
+    let balance = await AsyncStorage.getItem("@balance");
 
-    if (_amount != null) setAmount(JSON.parse(_amount));
-    if (_expense != null) setExpense(JSON.parse(_expense));
-    if (_balance != null) setBalance(JSON.parse(_balance));
+    if (expenses != null) setAllExpenses(JSON.parse(expenses));
+    if (balance != null) setBalance(JSON.parse(balance));
+    if (cardColor != null) setSelectedCardColor(JSON.parse(cardColor));
   };
 
-  const AddExpense = async (_expense) => {
-    let data = [_expense, ...expense];
-    setExpense(data);
-    await AsyncStorage.setItem("@expense", JSON.stringify(data));
+  // try catch block
+  const addExpense = async (newExpense) => {
+    let data = [...allExpenses, newExpense];
+    setAllExpenses(data);
+    await AsyncStorage.setItem("@allExpenses", JSON.stringify(data));
   };
 
-  const DeleteExpense = async (id) => {
-    let filtered = expense.filter((item) => item.time != id);
-    setExpense(filtered);
-    await AsyncStorage.setItem("@expense", JSON.stringify(filtered));
+  const deleteExpense = async (id) => {
+    let filtered = allExpenses.filter((item) => item.id != id);
+    setAllExpenses(filtered);
+    await AsyncStorage.setItem("@allExpenses", JSON.stringify(filtered));
   };
 
-  const AddBalance = async (balance) => {
+  const addBalance = async (balance) => {
     setBalance(balance);
     await AsyncStorage.setItem("@balance", JSON.stringify(balance));
   };
 
-  const AddAmount = async (amount) => {
-    setAmount(amount);
-    await AsyncStorage.setItem("@amount", JSON.stringify(amount));
+  const changeCardColor = async (color) => {
+    setSelectedCardColor(color);
+    await AsyncStorage.setItem("@selectedCardColor", JSON.stringify(color));
   };
+  console.log(selectedCardColor);
+  //accumulator arrayn eka
+  const sumOfAllExpenses = allExpenses.reduce(
+    (total, item) => item.amount + total,
+    0
+  );
+
+  console.log(sumOfAllExpenses);
+
+  const totalBalance = balance - sumOfAllExpenses;
 
   return (
     <ExpenseContext.Provider
       value={{
-        amount,
-        expense,
+        allExpenses,
         balance,
-        AddExpense,
-        AddAmount,
-        AddBalance,
-        DeleteExpense,
+        addExpense,
+        addBalance,
+        deleteExpense,
+        totalBalance,
+        sumOfAllExpenses,
+        changeCardColor,
+        selectedCardColor,
       }}
     >
       {props.children}
     </ExpenseContext.Provider>
   );
 };
+export const useExpenses = () => useContext(ExpenseContext);
 export default ExpenseProvider;

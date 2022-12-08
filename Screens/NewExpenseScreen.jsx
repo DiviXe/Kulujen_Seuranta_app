@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect, Alert, useContext } from "react";
 import CustomImageBackground from "../Components/ImageBackground";
-import { ExpenseContext } from "../context/ExpenseContext";
+import { useExpenses } from "../context/ExpenseContext";
 import ExpenseList from "../Components/ExpenseList";
 function GoBackButton() {
   const navigation = useNavigation();
@@ -15,10 +15,10 @@ function GoBackButton() {
   );
 }
 
-export const AddExpense = () => {
-  const [amount, setAmount] = useState("");
-  const [expense, setExpense] = useState("");
-  const { AddExpense } = useContext(ExpenseContext);
+export const NewExpenseScreen = () => {
+  const [amount, setAmount] = useState(0);
+  const [description, setDescription] = useState("");
+  const { addExpense } = useExpenses();
 
   const Alert = () =>
     Alert.alert("Expense added", "exampe", [
@@ -31,11 +31,18 @@ export const AddExpense = () => {
     ]);
 
   const save = async () => {
-    let time = Date.now();
-    AddExpense({ time, amount, expense });
+    let id = Math.floor(Math.random() * 100000 + 1);
+    const newExpense = {
+      time: new Date(),
+      description: description,
+      amount: +amount,
+      id: id,
+    };
+    console.log(newExpense);
+    addExpense(newExpense);
   };
 
-  const load = async () => {
+  /* const load = async () => {
     try {
       let amount = await AsyncStorage.getItem("amount");
       let expense = await AsyncStorage.getItem("expense");
@@ -46,7 +53,7 @@ export const AddExpense = () => {
     } catch (err) {
       alert(err);
     }
-  };
+  }; */
 
   const remove = async () => {
     try {
@@ -60,9 +67,9 @@ export const AddExpense = () => {
     }
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     load();
-  }, []);
+  }, []); */
 
   return (
     <CustomImageBackground>
@@ -72,19 +79,21 @@ export const AddExpense = () => {
 
       <TextInput
         style={styles.textInputBox}
-        placeholder="Write Amount here"
+        placeholder="enter description"
+        onChangeText={(description) => setDescription(description)}
+        value={description}
+        label="DESCRIPTION"
+      />
+
+      <TextInput
+        style={styles.textInputBox}
+        placeholder="enter expense"
         onChangeText={(amount) => setAmount(amount)}
         value={amount}
         label="AMOUNT"
         keyboardType="numeric"
       />
-      <TextInput
-        style={styles.textInputBox}
-        placeholder="Write Expense here"
-        onChangeText={(expense) => setExpense(expense)}
-        value={expense}
-        label="EXPENSE"
-      />
+
       <TouchableOpacity style={styles.button} onPress={() => save()}>
         <Text
           style={{
@@ -125,4 +134,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddExpense;
+export default NewExpenseScreen;
