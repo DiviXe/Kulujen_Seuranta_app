@@ -42,19 +42,6 @@ export const NewExpenseScreen = () => {
     addExpense(newExpense);
   };
 
-  /* const load = async () => {
-    try {
-      let amount = await AsyncStorage.getItem("amount");
-      let expense = await AsyncStorage.getItem("expense");
-      if (amount !== null) {
-        setAmount(amount);
-        setExpense(expense);
-      }
-    } catch (err) {
-      alert(err);
-    }
-  }; */
-
   const remove = async () => {
     try {
       await AsyncStorage.removeItem("amount");
@@ -67,10 +54,6 @@ export const NewExpenseScreen = () => {
     }
   };
 
-  /*   useEffect(() => {
-    load();
-  }, []); */
-
   return (
     <CustomImageBackground>
       <Text style={styles.AddMoneyTitle}>
@@ -80,6 +63,7 @@ export const NewExpenseScreen = () => {
       <TextInput
         style={styles.textInputBox}
         placeholder="enter description"
+        placeholderTextColor="#fff"
         onChangeText={(description) => setDescription(description)}
         value={description}
         label="DESCRIPTION"
@@ -88,6 +72,7 @@ export const NewExpenseScreen = () => {
       <TextInput
         style={styles.textInputBox}
         placeholder="enter expense"
+        placeholderTextColor="#fff"
         onChangeText={(amount) => setAmount(amount)}
         value={amount}
         label="AMOUNT"
@@ -122,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textInputBox: {
-    backgroundColor: "#0002",
+    backgroundColor: "#0005",
     padding: 10,
     borderRadius: 10,
     color: "#fff",

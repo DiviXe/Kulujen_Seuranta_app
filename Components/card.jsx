@@ -7,6 +7,7 @@ const Card = () => {
   const { navigate } = useNavigation();
   const { totalBalance, allExpenses, selectedCardColor } = useExpenses();
   let recentExpense = allExpenses.length > 0 ? allExpenses[0] : false;
+
   return (
     <LinearGradient colors={selectedCardColor} style={styles.box}>
       <View style={styles.boxTextAlign}>

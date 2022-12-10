@@ -6,6 +6,7 @@ export const ExpenseProvider = (props) => {
   const [selectedCardColor, setSelectedCardColor] = useState([]);
   const [balance, setBalance] = useState();
   const [allExpenses, setAllExpenses] = useState([]);
+  let initialColor = ["#FAAD3D", "#EFC902"];
   //AsyncStorage.clear();
   console.log(allExpenses, "allExpenses");
   useEffect(() => {
@@ -16,13 +17,15 @@ export const ExpenseProvider = (props) => {
     let cardColor = await AsyncStorage.getItem("@selectedCardColor");
     let expenses = await AsyncStorage.getItem("@allExpenses");
     let balance = await AsyncStorage.getItem("@balance");
-
+    let color = await AsyncStorage.getItem("@initialColor");
     if (expenses != null) setAllExpenses(JSON.parse(expenses));
     if (balance != null) setBalance(JSON.parse(balance));
+    if (cardColor == null) setSelectedCardColor(initialColor);
     if (cardColor != null) setSelectedCardColor(JSON.parse(cardColor));
+    console.log(color);
   };
 
-  // try catch block
+  // try catch block tekoon myöhemmin
   const addExpense = async (newExpense) => {
     let data = [...allExpenses, newExpense];
     setAllExpenses(data);

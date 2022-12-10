@@ -11,8 +11,8 @@ const ExpenseItem = ({ expenseItem }) => {
   const { deleteExpense } = useExpenses();
   return (
     <View style={styles.item}>
-      <Text>{expenseItem.description}</Text>
-      <Text>{expenseItem.amount}</Text>
+      <Text style={styles.description}>{expenseItem.description}</Text>
+      <Text style={styles.amount}>{expenseItem.amount}</Text>
       <TouchableOpacity
         style={styles.delete}
         onPress={() => deleteExpense(expenseItem.id)}
@@ -51,12 +51,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#0002",
+    backgroundColor: "#0009",
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginVertical: 5,
     borderRadius: 8,
-    borderColor: "#0002",
   },
   delete: {
     backgroundColor: "red",
@@ -67,6 +66,12 @@ const styles = StyleSheet.create({
   deleteText: {
     color: "#fff",
     paddingHorizontal: 8,
+  },
+  description: {
+    color: "#fff",
+  },
+  amount: {
+    color: "#fff",
   },
 });
 export default ExpenseList;

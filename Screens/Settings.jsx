@@ -19,28 +19,28 @@ export const Settings = () => {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => changeCardColor(["#e7e6fa", "#ff00e8"])}
+        onPress={() => changeCardColor(["#E7E6FC", "#FF00E8"])}
       >
         <Text>Change card color (Purple) </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button2}
-        onPress={() => changeCardColor(["#e7e6fa", "#ab2026"])}
+        onPress={() => changeCardColor(["#E7E6F7", "#AB2026"])}
       >
         <Text>Change card color (Red)</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button3}
-        onPress={() => changeCardColor(["#e7e6fa", "#8ae880"])}
+        onPress={() => changeCardColor(["#808080", "#C0C0C0"])}
       >
-        <Text>Change card color (Green)</Text>
+        <Text>Change card color (Gray)</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button4}
-        onPress={() => changeCardColor(["#e7e6fa", "#5353e0"])}
+        onPress={() => changeCardColor(["#E7E6FA", "#5353E0"])}
       >
         <Text>Change card color (Blue)</Text>
       </TouchableOpacity>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   button3: {
     borderRadius: 2,
-    backgroundColor: "green",
+    backgroundColor: "gray",
     borderWidth: 2,
     flex: 1,
     justifyContent: "center",

@@ -26,6 +26,7 @@ export const AddBalance = () => {
       <TextInput
         style={styles.textInputBox}
         placeholder="enter balance"
+        placeholderTextColor="#fff"
         onChangeText={(balance) => setBalance(balance)}
         value={balance}
         label="BALANCE"
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   textInputBox: {
-    backgroundColor: "#0002",
+    backgroundColor: "#0005",
     padding: 10,
     borderRadius: 10,
     color: "#fff",
