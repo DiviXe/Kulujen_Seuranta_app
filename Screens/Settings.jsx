@@ -1,10 +1,8 @@
-import { Alert } from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import CustomImageBackground from "../Components/ImageBackground";
 import { useExpenses } from "../context/ExpenseContext";
 export const Settings = () => {
   const { changeCardColor } = useExpenses();
-  const userAlert = () => Alert.alert("Your card's color has been updated");
 
   return (
     <CustomImageBackground>

@@ -49,26 +49,6 @@ const Card = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: 25,
-    paddingHorizontal: 15,
-  },
-  FlatlistContainer: {
-    flex: 1,
-    width: 350,
-    paddingVertical: 5,
-    borderColor: "#fff",
-    paddingTop: 40,
-    paddingHorizontal: 20,
-  },
-
-  text: {
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: 30,
-  },
   box: {
     borderRadius: 15,
     flexDirection: "row",
