@@ -4,4 +4,4 @@ Tiedoston pystyy lataamaan repositorien kautta tai käyttämällä expo.dev palv
 
 Sovelluksen tehtävä on seurata käyttäjän kuluja. Ohjelma käyttää tiedostokantanaan async Storagea ja käytössä on myös stack navigointi. Komponenttien välittämisessä käytetään Contextia. Ohjelmassa on myös korttinäkymä jonka väriä pystytään muuttamaan sovelluksen asetuksista.
 
-- LinearGradient bugi korjattu
+14.12 LinearGradient bugi korjattu
