@@ -3,10 +3,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const ExpenseContext = createContext(null);
 export const ExpenseProvider = (props) => {
-  const [selectedCardColor, setSelectedCardColor] = useState([]);
+  const [selectedCardColor, setSelectedCardColor] = useState([
+    "#FAAD3D",
+    "#EFC902",
+  ]);
   const [balance, setBalance] = useState();
   const [allExpenses, setAllExpenses] = useState([]);
-  let initialColor = ["#FAAD3D", "#EFC902"];
   //AsyncStorage.clear();
   console.log(allExpenses, "allExpenses");
   useEffect(() => {
@@ -17,12 +19,9 @@ export const ExpenseProvider = (props) => {
     let cardColor = await AsyncStorage.getItem("@selectedCardColor");
     let expenses = await AsyncStorage.getItem("@allExpenses");
     let balance = await AsyncStorage.getItem("@balance");
-    let color = await AsyncStorage.getItem("@initialColor");
     if (expenses != null) setAllExpenses(JSON.parse(expenses));
     if (balance != null) setBalance(JSON.parse(balance));
-    if (cardColor == null) setSelectedCardColor(initialColor);
     if (cardColor != null) setSelectedCardColor(JSON.parse(cardColor));
-    console.log(color);
   };
 
   // try catch block tekoon myöhemmin
@@ -47,7 +46,6 @@ export const ExpenseProvider = (props) => {
     setSelectedCardColor(color);
     await AsyncStorage.setItem("@selectedCardColor", JSON.stringify(color));
   };
-  console.log(selectedCardColor);
   //accumulator arrayn eka
   const sumOfAllExpenses = allExpenses.reduce(
     (total, item) => item.amount + total,

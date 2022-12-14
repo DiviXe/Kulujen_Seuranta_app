@@ -6,6 +6,8 @@ import { useExpenses } from "../context/ExpenseContext";
 const Card = () => {
   const { navigate } = useNavigation();
   const { totalBalance, allExpenses, selectedCardColor } = useExpenses();
+  console.log(selectedCardColor);
+
   let recentExpense = allExpenses.length > 0 ? allExpenses[0] : false;
 
   return (

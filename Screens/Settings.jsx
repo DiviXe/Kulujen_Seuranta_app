@@ -1,4 +1,5 @@
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import CustomImageBackground from "../Components/ImageBackground";
 import { useExpenses } from "../context/ExpenseContext";
 export const Settings = () => {
